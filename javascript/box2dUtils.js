@@ -20,9 +20,16 @@
     var b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef;
     var b2PulleyJointDef = Box2D.Dynamics.Joints.b2PulleyJointDef;
 
-    var bodies = [];
-    var actors = [];
-    
+   var CATEGORY_PLAYER = 0x0001;
+    var CATEGORY_MONSTER = 0x0002;
+    var CATEGORY_SCENERY = 0x0004;
+    var CATEGORY_COLLECTIBLES = 0x0006;
+
+    var MASK_PLAYER = CATEGORY_SCENERY | CATEGORY_MONSTER;
+    var MASK_SCENERY = -1;
+    var MASK_MONSTER = CATEGORY_PLAYER | CATEGORY_SCENERY;
+    var MASK_COLLECTIBLES = CATEGORY_PLAYER;
+        
     //Constructeur
     Box2dUtils = function(scale) {
         this.scale = scale; // Définir l'échelle
@@ -30,7 +37,7 @@
     
     //Classe Box2dUtils
     Box2dUtils.prototype = {
-    
+
         // Création du monde box2d
         createWorld : function(context) {
              var world = new b2World(
@@ -107,8 +114,8 @@
                     fixDef.filter.maskBits = MASK_MONSTER;
                     break;
                 case 'collectible':
-                    fixDef.filter.categoryBits = CATEGORY_MONSTER;
-                    fixDef.filter.maskBits = MASK_MONSTER;
+                    fixDef.filter.categoryBits = CATEGORY_COLLECTIBLES;
+                    fixDef.filter.maskBits = MASK_COLLECTIBLES;
                     break;
                 case 'player':
                     fixDef.filter.categoryBits = CATEGORY_PLAYER; 
@@ -250,6 +257,7 @@
                     }
                 }
             }
+
             intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
             intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
 

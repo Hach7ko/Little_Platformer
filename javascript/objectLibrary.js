@@ -53,6 +53,15 @@ function objectLibrary() {
                 "name": "collectible",
                 "img": "hud_coins.png"
             }
+        },
+        "spikes": {
+            "width": 10,
+            "height": 10,
+            "fixed": true,
+            "userData": {
+                "name": "spikes",
+                "img": "spikes.png"
+            }
         }        
     }
 }

@@ -85,7 +85,25 @@ function levelLibrary() {
                     "y": 150,
                     "angle": 0,
                     "name": "collectible"
-                }
+                },
+                "15": {
+                    "x": 590,
+                    "y": 570,
+                    "angle": 0,
+                    "name": "spikes"
+                },
+                "16": {
+                    "x": 570,
+                    "y": 570,
+                    "angle": 0,
+                    "name": "spikes"
+                },
+                "17": {
+                    "x": 550,
+                    "y": 570,
+                    "angle": 0,
+                    "name": "spikes"
+                }                
             }
         },
         "2": {

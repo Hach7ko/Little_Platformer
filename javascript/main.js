@@ -14,14 +14,6 @@ window.onload = function() {
     console.log(game);
 }
 
-var CATEGORY_PLAYER = 0x0001;
-var CATEGORY_MONSTER = 0x0002;
-var CATEGORY_SCENERY = 0x0004;
-
-var MASK_PLAYER = CATEGORY_SCENERY | CATEGORY_MONSTER;
-var MASK_SCENERY = -1;
-var MASK_MONSTER = CATEGORY_PLAYER | CATEGORY_SCENERY;
-
 function Game() {
     //Permet d'enlever certains "mauvais" côtés du JS
     "use strict";
@@ -52,13 +44,38 @@ function Game() {
     }
 
     this.draw = function() {
-        context.fillStyle = "white";
-        for (var i = param.life - 1; i >= 0; i--) {
-            context.drawImage(param.images[0], 90+(i*30), 2, 20, 20);
-        }
+       switch(state.getState()) {
+            case "menu":
+                break;
+            case "newGame":
+                break;
+            case "restartLevel":
+                break;
+            case "nextLevel":
+                break;
+            case "pause":
+            context.fillStyle = "white";
+            for (var i = param.life - 1; i >= 0; i--) {
+                context.drawImage(param.images[0], 90+(i*30), 2, 20, 20);
+            }
 
-        context.fillText("Life:", 10, 20);
-        context.fillText("Score:"+param.score, 475, 20);
+            context.fillText("Life:", 10, 20);
+            context.fillText("Score:"+param.score, 475, 20);
+
+            context.fillText("PAUSE", canvas.width/2-40, canvas.height/2);
+                break;
+            case "inGame":
+            context.fillStyle = "white";
+            for (var i = param.life - 1; i >= 0; i--) {
+                context.drawImage(param.images[0], 90+(i*30), 2, 20, 20);
+            }
+
+            context.fillText("Life:", 10, 20);
+            context.fillText("Score:"+param.score, 475, 20);
+                break;
+            case "gameOver":
+                break;
+        }
     }
 
     this.update = function() {
@@ -176,6 +193,10 @@ function Game() {
     this.createLevel = function() {
         var levelObject = Object.keys(levelData[param.level]["objectList"]);
         
+        param.isJumping = false;
+        if(param.playerJoint != null)
+            box2dUtils.destroyJoint(param);
+
         for (var i = levelObject.length - 1; i >= 0; i--) {
             
             var object = levelData[param.level]["objectList"][levelObject[i]];
@@ -291,13 +312,51 @@ function Game() {
                 }
             }
 
-             if(that.isEnemy(obj1)) {
-                if(that.isEnemy(obj2)) {
+            if(that.isPlayer(obj1) || that.isPlayer(obj2)) {
+                if(obj1.m_userData.name === "littlePlatform" && param.playerJoint != null) {
                     obj1.m_isSensor = false;
-                    obj2.m_isSensor = false;  
+                } else if(obj2.m_userData.name === "littlePlatform" && param.playerJoint != null) {
+                    obj2.m_isSensor = false;
                 }
             }
 
+            if(that.isPlayer(obj1) || that.isPlayer(obj2)) {
+                if(obj1.m_userData.name === "spikes" || obj2.m_userData.name === "spikes") {
+                    param.life--;
+                    if(param.life === 0) {
+                        state.setState("gameOver");
+                    } else {
+                        state.setState("restartLevel");
+                    }
+                }
+            }
+
+            if(that.isEnemy(obj1) || that.isEnemy(obj2)) {
+                if(obj1.m_userData.name === "spikes") {
+                    param.destroys.push(obj2);
+                    for (var i = param.gameObjects.length - 1; i >= 0; i--) {
+                        if(param.enemies[i] === obj2) {
+                            param.enemies.splice(i, 1);
+                        }
+                        if(param.gameObjects[i] === obj2) {
+                            param.objectDrawTab.splice(i, 1);
+                            param.gameObjects.splice(i, 1);
+                        }
+                    }
+                }
+                if(obj2.m_userData.name === "spikes") {
+                    param.destroys.push(obj1);
+                    for (var i = param.gameObjects.length - 1; i >= 0; i--) {
+                        if(param.enemies[i] === obj1) {
+                            param.enemies.splice(i, 1);
+                        }
+                        if(param.gameObjects[i] === obj1) {
+                            param.objectDrawTab.splice(i, 1);
+                            param.gameObjects.splice(i, 1);
+                        }
+                    }
+                }
+            }
            /* if(obj1.m_userData.name === 'littlePlatform') {
                 if(obj2.m_userData.name === 'player') {
                     obj1.m_isSensor = true;
@@ -391,6 +450,10 @@ function Game() {
             param.isJumping = false;
         }
 
+        if(param.keys[80]) {
+            state.setState("pause");
+        }
+
         if (param.keys[81]) {
             player.moveLeft();
         } else if (param.keys[68]) {
@@ -434,10 +497,10 @@ function Game() {
         param.objectDrawTab.push(param.player);
 
         that.loadImages();
-/*
+
         setInterval(function() {
            enemy.spawn();
-        }, 5000);*/
+        }, 5000);
 
         that.addContactListener();
 
