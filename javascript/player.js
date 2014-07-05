@@ -19,12 +19,9 @@ function playerLibrary(param, box2dUtils, context) {
         if (param.jumpContacts > 0) {
             // Appliquer une impulsion vers le haut
             param.player.GetBody().ApplyImpulse(
-                    new b2Vec2(0, -25),                         // vecteur
+                    new b2Vec2(0, -30),                         // vecteur
                     param.player.GetBody().GetWorldCenter());    // point d'application de l'impulsion
-        }
-
-        if(param.playerJoint != null)
-                box2dUtils.destroyJoint(param);
+        }             
     }
 
     this.moveRight = function() {

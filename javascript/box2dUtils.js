@@ -226,7 +226,7 @@
             input.maxFraction = 1;
             closestFraction = 1;
 
-            for(b = param.world.GetBodyList(); b; b = b.GetNext())    {           
+            for(b = param.world.GetBodyList(); b; b = b.GetNext())    {          
                 for(f = b.GetFixtureList(); f; f = f.GetNext()) {
                     if(!f.RayCast(output, input))
                         continue;
@@ -236,14 +236,20 @@
                         if(f.m_userData.name === "littlePlatform" && param.keys[90] && param.useGrapple === true) {
                             this.createGrapple(param, f);
                         } // En utilisant le raycast
-                        /*else if(f.m_userData.name === "littlePlatform" || param.useGrapple === true) {
-                            f.m_isSensor = true; 
-                            console.log('coucou')
-                        }*/
+                        else if(f.m_userData.name === "littlePlatform") {
+                            f.m_isSensor = true;
+                        }
                     }
                 }
             }
 
+            if(param.velocity.y === 0 || param.velocity.y > 0) {
+                for (var i = param.gameObjects.length - 1; i >= 0; i--) {
+                    if(param.gameObjects[i].GetUserData().name === "littlePlatform") {
+                        param.gameObjects[i].m_isSensor = false;
+                    }
+                }
+            }
             intersectionPoint.x = p1.x + closestFraction * (p2.x - p1.x);
             intersectionPoint.y = p1.y + closestFraction * (p2.y - p1.y);
 
@@ -267,6 +273,8 @@
 
         createGrapple: function(param, platform) {
             var distance_joint = new b2DistanceJointDef();
+
+            param.isJumping = false;
 
             distance_joint.bodyA = param.player.GetBody();
             distance_joint.bodyB = platform.GetBody();

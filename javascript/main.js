@@ -375,10 +375,20 @@ function Game() {
 
     // Gérer les interactions
     this.handleInteractions = function() {
-        
-        if (param.keys[32]) {
+        if (param.keys[32] && param.isJumping === false) {
             player.jump();
-            param.keys[32] = 0;
+            param.isJumping = true;
+        }
+
+        if(param.keys[69]) {
+            if(param.playerJoint != null) {
+                box2dUtils.destroyJoint(param);
+                param.isJumping = false;
+            }   
+        }
+
+        if(param.velocity.y === 0) {
+            param.isJumping = false;
         }
 
         if (param.keys[81]) {

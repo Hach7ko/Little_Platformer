@@ -21,6 +21,7 @@ function paramLibrary() {
         {name:"hudp1", src:"images/hud_p1.png"}
         ],
         "images": [],
-        "isColliding": false
+        "isColliding": false,
+        "isJumping": false
     }
 }
