@@ -1,8 +1,8 @@
 function stateMachine() {
     //Connaître l'état du jeu
     var currentState = {
-        "menu": false,
-        "newGame": true,
+        "menu": true,
+        "newGame": false,
         "restartLevel": false,
         "nextLevel": false,
         "pause": false,

@@ -1,6 +1,12 @@
+@font-face {
+    font-family: emulogic;
+    src: url(fonts/emulogic.ttf);
+}
+
 body {
-    font-family: 'Emulogic';
+    font-family: emulogic;
     color: white;
+
 }
 
 canvas { 
@@ -16,11 +22,13 @@ canvas {
 }
 
 #menu_wrapper {
-    background-color: black;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0px;
+    -webkit-border-image: url(images/hud_p1.png) 30 30; /* Safari */
+    -o-border-image: url(images/hud_p1.png) 30 30; /* Opera */
+    border-image: url(images/hud_p1.png) 600 600;
 }
 
 #next_level {
@@ -39,4 +47,16 @@ canvas {
     height: 100%;
     top: 0px;
     visibility: hidden;
+}
+
+#buttonsHelper {
+
+}
+
+#playButton {
+
+}
+
+#credits {
+
 }
