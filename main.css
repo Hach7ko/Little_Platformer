@@ -16,7 +16,7 @@ body {
 }
 
 canvas { 
-    background-color: black;
+    background-image: url(images/dark-starry-sky.jpg);
     -webkit-box-shadow: 0px 0px 5px 3px rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    0px 0px 5px 3px rgba(50, 50, 50, 0.75);
     box-shadow:         0px 0px 5px 3px rgba(50, 50, 50, 0.75);
@@ -48,6 +48,7 @@ canvas {
     height: 100%;
     top: 0px;
     visibility: hidden;
+    background-image: url(images/dark-starry-sky.jpg);
 }
 
 #game_over {
@@ -57,6 +58,7 @@ canvas {
     height: 100%;
     top: 0px;
     visibility: hidden;
+    background-image: url(images/dark-starry-sky.jpg);
 }
 
 #gameTitle{
@@ -88,7 +90,7 @@ canvas {
 #coins {
     position: relative;
     left: 200px;
-    top: 400px;
+    top: 390px;
 }
 
 #gameOver {

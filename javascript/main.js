@@ -44,7 +44,8 @@ function Game() {
     }
 
     this.draw = function() {
-       switch(state.getState()) {
+
+        switch(state.getState()) {
             case "menu":
                 break;
             case "newGame":
@@ -75,6 +76,15 @@ function Game() {
 
             context.fillText("Life:", 10, 20);
             context.fillText("Score:"+param.score, 475, 20);
+
+           /* if(param.playerJoint != null) {
+                context.strokeStyle = "white";
+                context.beginPath();
+                context.moveTo(param.playerJoint.m_bodyA.GetPosition().x, param.playerJoint.m_bodyA.GetPosition().y);
+                context.lineTo(param.playerJoint.m_bodyB.GetPosition().x, param.playerJoint.m_bodyB.GetPosition().y);
+                context.closePath();
+                context.stroke();
+            }*/
                 break;
             case "gameOver":
                  document.getElementById("scoreGameOver").innerHTML = "Score : " + param.score;
@@ -151,7 +161,7 @@ function Game() {
                 break;
             case "inGame":
                 param.world.Step(1 / 60, 10, 10);
-                //param.world.DrawDebugData();
+                param.world.DrawDebugData();
                 param.world.ClearForces();
 
                 that.handleInteractions();

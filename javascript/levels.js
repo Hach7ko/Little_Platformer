@@ -4,13 +4,13 @@ function levelLibrary() {
             "objectList" : {
                 "1": {
                     "x": 0,
-                    "y": canvas.width,
+                    "y": canvas.width+25,
                     "angle": null,
                     "name": "metalPlatform"
                 },
                 "2": {
                     "x": 0,
-                    "y": 0,
+                    "y": -100,
                     "angle": null,
                     "name": "metalPlatform"
                 },
@@ -88,19 +88,19 @@ function levelLibrary() {
                 },
                 "15": {
                     "x": 590,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
                 "16": {
                     "x": 570,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
                 "17": {
                     "x": 550,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 }                
@@ -110,13 +110,13 @@ function levelLibrary() {
             "objectList" : {
                 "1": {
                     "x": 0,
-                    "y": canvas.width,
+                    "y": canvas.width+25,
                     "angle": null,
                     "name": "metalPlatform"
                 },
                 "2": {
                     "x": 0,
-                    "y": 0,
+                    "y": -100,
                     "angle": null,
                     "name": "metalPlatform"
                 },
@@ -182,19 +182,19 @@ function levelLibrary() {
                 },
                 "13": {
                     "x": 590,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
                 "14": {
                     "x": 570,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
                 "15": {
                     "x": 550,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
@@ -222,13 +222,13 @@ function levelLibrary() {
             "objectList" : {
                  "1": {
                     "x": 0,
-                    "y": canvas.width,
+                    "y": canvas.width+25,
                     "angle": null,
                     "name": "metalPlatform"
                 },
                 "2": {
                     "x": 0,
-                    "y": 0,
+                    "y": -100,
                     "angle": null,
                     "name": "metalPlatform"
                 },
@@ -282,19 +282,19 @@ function levelLibrary() {
                 },
                  "11": {
                     "x": 590,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
                 "12": {
                     "x": 570,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
                 "13": {
                     "x": 550,
-                    "y": 570,
+                    "y": 590,
                     "angle": 0,
                     "name": "spikes"
                 },
@@ -323,19 +323,19 @@ function levelLibrary() {
                     "name": "win"
                 },
                 "18": {
-                    "x": 410,
-                    "y": 130,
-                    "angle": 0,
-                    "name": "spikes"
-                },
-                "19": {
                     "x": 430,
                     "y": 130,
                     "angle": 0,
                     "name": "spikes"
                 },
+                "19": {
+                    "x": 410,
+                    "y": 130,
+                    "angle": 0,
+                    "name": "spikes"
+                },
                 "20": {
-                    "x": 450,
+                    "x": 390,
                     "y": 130,
                     "angle": 0,
                     "name": "spikes"

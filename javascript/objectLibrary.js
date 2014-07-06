@@ -6,7 +6,7 @@ function objectLibrary() {
             "fixed": true,
             "userData": {
                 "name": "metalPlatform",
-                "img": "grassMid.png"
+                "img": "stoneMid.png"
             }
         },
         "wall": {
@@ -33,7 +33,7 @@ function objectLibrary() {
             "fixed": true,
             "userData": {
                 "name": "littlePlatform",
-                "img": "grassMid.png"
+                "img": "stoneMid.png"
             }
         },
         "win": {
@@ -46,12 +46,12 @@ function objectLibrary() {
             }
         },        
         "collectible": {
-            "width": 10,
-            "height": 10,
+            "width": 20,
+            "height": 20,
             "fixed": true,
             "userData": {
                 "name": "collectible",
-                "img": "hud_coins.png"
+                "img": "star.png"
             }
         },
         "spikes": {
