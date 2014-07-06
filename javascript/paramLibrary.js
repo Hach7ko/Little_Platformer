@@ -18,10 +18,15 @@ function paramLibrary() {
         "score": 0,
         "life": 3,
         "imagesSrc": [
-        {name:"hudp1", src:"images/hud_p1.png"}
+        {name:"hudp1", src:"images/hud_p1.png"}/*,
+        {name:"cloud1", src:"images/cloud1.png"},
+        {name:"cloud2", src:"images/cloud2.png"},
+        {name:"cloud3", src:"images/cloud3.png"}*/
         ],
         "images": [],
         "isColliding": false,
-        "isJumping": false
+        "isJumping": false,
+        "enemySpawn": null,
+        "isSpawning": false
     }
 }

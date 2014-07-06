@@ -52,9 +52,11 @@ function Game() {
             case "restartLevel":
                 break;
             case "nextLevel":
+            document.getElementById("score").innerHTML = "Score : " + param.score;
                 break;
             case "pause":
             context.fillStyle = "white";
+
             for (var i = param.life - 1; i >= 0; i--) {
                 context.drawImage(param.images[0], 90+(i*30), 2, 20, 20);
             }
@@ -63,6 +65,7 @@ function Game() {
             context.fillText("Score:"+param.score, 475, 20);
 
             context.fillText("PAUSE", canvas.width/2-40, canvas.height/2);
+            context.fillText("Press Enter to Play", canvas.width/2-140, canvas.height/2+40);
                 break;
             case "inGame":
             context.fillStyle = "white";
@@ -74,14 +77,26 @@ function Game() {
             context.fillText("Score:"+param.score, 475, 20);
                 break;
             case "gameOver":
+                 document.getElementById("scoreGameOver").innerHTML = "Score : " + param.score;
                 break;
         }
     }
 
     this.update = function() {
+
+        if(state.getState() != "inGame") {
+            clearInterval(param.enemySpawn);
+            param.isSpawning = false;
+        } else if(param.isSpawning === false) {
+            param.enemySpawn = setInterval(function() {
+               enemy.spawn();
+            }, 5000);
+            param.isSpawning = true;
+        }
+
         switch(state.getState()) {
             case "menu":
-            if(param.keys[13] === true) {
+            if(param.keys[13]) {
                 document.getElementById("menu_wrapper").style.visibility = "hidden";
                 state.setState("newGame");
             }
@@ -132,10 +147,11 @@ function Game() {
                 }
                 break;
             case "pause":
+                that.handleInteractions();
                 break;
             case "inGame":
                 param.world.Step(1 / 60, 10, 10);
-                param.world.DrawDebugData();
+                //param.world.DrawDebugData();
                 param.world.ClearForces();
 
                 that.handleInteractions();
@@ -256,21 +272,6 @@ function Game() {
                 if(obj2.m_userData.name === 'win' || obj1.m_userData.name === 'win')
                     state.setState("nextLevel");
 
-                //En utilisant la vélocité
-               /*if(param.velocity.y > 0) {
-                    if(obj1.m_userData.name === 'littlePlatform') {
-                        obj1.m_isSensor = false;
-                    } else if(obj2.m_userData.name === 'littlePlatform') {
-                        obj2.m_isSensor = false;                     
-                    }
-                } else if(param.velocity.y < 0) {
-                    if(obj1.m_userData.name === 'littlePlatform') {
-                        obj1.m_isSensor = true;
-                    } else if(obj2.m_userData.name === 'littlePlatform') {
-                        obj2.m_isSensor = true;                     
-                    }
-                }*/
-
                 if(obj1.m_userData.name === "collectible") {
                     param.destroys.push(obj1);
                     for (var i = param.gameObjects.length - 1; i >= 0; i--) {
@@ -357,49 +358,6 @@ function Game() {
                     }
                 }
             }
-           /* if(obj1.m_userData.name === 'littlePlatform') {
-                if(obj2.m_userData.name === 'player') {
-                    obj1.m_isSensor = true;
-                    param.isColliding = true;
-                } else if(param.isColliding === true && obj2.m_userData === 'footPlayer') {
-                    obj1.m_isSensor = true
-                } else if(obj2.m_userData.name != 'player') {
-                    obj1.m_isSensor = false;
-                    param.isColliding = false;
-                }
-            } else if(obj2.m_userData.name === 'littlePlatform') {
-                if(obj1.m_userData.name === 'player') {
-                    obj1.m_isSensor = true;
-                    param.isColliding = true;
-                } else if(param.isColliding === true && obj1.m_userData === 'footPlayer') {
-                    obj2.m_isSensor = true
-                } else if(obj1.m_userData.name != 'player') {
-                    obj2.m_isSensor = false;
-                    param.isColliding = false;
-                }
-            }*/
-   
-            //En utilisant les différentes parties du corps du player 
-            /* if(obj1.m_userData.name === 'player' || obj2.m_userData.name === 'player'){
-                if(obj1.m_userData.name === 'littlePlatform') {
-                    obj1.m_isSensor = true;
-                } else if(obj2.m_userData.name === 'littlePlatform') {
-                    obj2.m_isSensor = true;                     
-                }
-            } else if(obj1.m_userData === 'footPlayer' || obj2.m_userData === 'footPlayer'){
-                if(obj1.m_userData.name === 'littlePlatform') {
-                    obj1.m_isSensor = false;
-                } else if(obj2.m_userData.name === 'littlePlatform') {
-                    obj2.m_isSensor = false;                     
-                }
-            } else if(obj1.m_userData === 'footPlayer' || obj2.m_userData === 'footPlayer' && param.playerJoint){
-                if(obj1.m_userData.name === 'littlePlatform') {
-                    obj1.m_isSensor = true;
-                } else if(obj2.m_userData.name === 'littlePlatform') {
-                    obj2.m_isSensor = true;                     
-                }
-            }*/
-
         }   
     
         // Fin de contact
@@ -450,8 +408,10 @@ function Game() {
             param.isJumping = false;
         }
 
-        if(param.keys[80]) {
+        if(param.keys[80] && state.getState() === "inGame") {
             state.setState("pause");
+        } else if(param.keys[13] && state.getState() === "pause") {
+            state.setState("inGame");
         }
 
         if (param.keys[81]) {
@@ -498,9 +458,10 @@ function Game() {
 
         that.loadImages();
 
-        setInterval(function() {
+        param.enemySpawn = setInterval(function() {
            enemy.spawn();
         }, 5000);
+        param.isSpawning = true;
 
         that.addContactListener();
 

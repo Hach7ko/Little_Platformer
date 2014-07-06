@@ -67,15 +67,15 @@ canvas {
 }
 
 #buttonsHelper {
-    top: 250px;
+    top: 260px;
     position: relative;
     left: 130px;
 }
 
-#playButton {
+#playButton, #score {
     position: relative;
     left: 140px;
-    top: 241px;
+    top: 200px;
 }
 
 #charImg {
@@ -83,6 +83,24 @@ canvas {
     text-align:center;
     top:-167px;
     left:127px;
+}
+
+#coins {
+    position: relative;
+    left: 200px;
+    top: 400px;
+}
+
+#gameOver {
+    position: relative;
+    left: 200px;
+    top: 200px;
+}
+
+#scoreGameOver {
+    position: relative;
+    left: 200px;
+    top: 200px;
 }
 
 #charImg {

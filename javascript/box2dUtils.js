@@ -20,7 +20,7 @@
     var b2DistanceJointDef = Box2D.Dynamics.Joints.b2DistanceJointDef;
     var b2PulleyJointDef = Box2D.Dynamics.Joints.b2PulleyJointDef;
 
-   var CATEGORY_PLAYER = 0x0001;
+    var CATEGORY_PLAYER = 0x0001;
     var CATEGORY_MONSTER = 0x0002;
     var CATEGORY_SCENERY = 0x0004;
     var CATEGORY_COLLECTIBLES = 0x0006;
@@ -116,6 +116,7 @@
                 case 'collectible':
                     fixDef.filter.categoryBits = CATEGORY_COLLECTIBLES;
                     fixDef.filter.maskBits = MASK_COLLECTIBLES;
+                    fixDef.isSensor = true;
                     break;
                 case 'player':
                     fixDef.filter.categoryBits = CATEGORY_PLAYER; 
@@ -264,7 +265,7 @@
             normalEnd.x = intersectionPoint.x + intersectionNormal.x;
             normalEnd.y = intersectionPoint.y + intersectionNormal.y;
 
-            context.strokeStyle = "rgb(255, 255, 255)";
+            /*context.strokeStyle = "rgb(255, 255, 255)";
 
             context.beginPath(); // Start the path
             context.moveTo(p1.x*30,p1.y*30); // Set the path origin
@@ -276,7 +277,7 @@
             context.moveTo(intersectionPoint.x*30, intersectionPoint.y*30); // Set the path origin
             context.lineTo(normalEnd.x*30, normalEnd.y*30); // Set the path destination
             context.closePath(); // Close the path
-            context.stroke(); // Outline the path
+            context.stroke(); // Outline the path*/
         },
 
         createGrapple: function(param, platform) {
